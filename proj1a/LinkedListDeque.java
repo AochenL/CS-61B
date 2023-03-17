@@ -1,9 +1,9 @@
 public class LinkedListDeque<T> {
     public class TNode {
-        public T item;
-        public TNode prev;
-        public TNode next;
-        public TNode(TNode p, T i, TNode n) {
+        private T item;
+        private TNode prev;
+        private TNode next;
+        private TNode(TNode p, T i, TNode n) {
             prev = p;
             item = i;
             next = n;
@@ -20,37 +20,34 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(T x) {
-        sentinel = new TNode(sentinel, x, sentinel);
-        sentinel.next = new TNode(sentinel, x, sentinel);
-        size = 1;
-    }
-
     /** Adds an item of type T to the front of the deque. */
-    public void addFirst(T item){
-        sentinel.next = new TNode(sentinel, item, sentinel.next);
+    public void addFirst(T item) {
+        TNode tn = new TNode(sentinel, item, sentinel.next);
+        sentinel.next.prev = tn;
+        sentinel.next = tn;
         size += 1;
     }
 
     /** Adds an item of type T to the back of the deque. */
-    public void addLast(T item){
-        TNode tn = new TNode(sentinel.prev, item, sentinel.next);
+    public void addLast(T item) {
+        TNode tn = new TNode(sentinel.prev, item, sentinel);
+        sentinel.prev.next = tn;
         sentinel.prev = tn;
         size += 1;
     }
     
     /** Returns true if deque is empty, false otherwise. */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
     /** Returns the number of items in the deque. */
-    public int size(){
+    public int size() {
         return size;
     }
 
     /** Prints the items in the deque from first to last, separated by a space. */
-    public void printDeque(){
+    public void printDeque() {
         TNode p = sentinel;
         while (p.next != sentinel){
             //System.out.print(p.next.item, " ");
@@ -58,8 +55,9 @@ public class LinkedListDeque<T> {
         }
     }
 
-    /**  Removes and returns the item at the front of the deque. If no such item exists, returns null. */
-    public T removeFirst(){
+    /**  Removes and returns the item at the front of the deque. 
+    If no such item exists, returns null. */
+    public T removeFirst() {
         if (sentinel.next == sentinel){
             return null;
         }
@@ -70,8 +68,9 @@ public class LinkedListDeque<T> {
         return item;
     }
 
-    /** Removes and returns the item at the back of the deque. If no such item exists, returns null. */
-    public T removeLast(){
+    /** Removes and returns the item at the back of the deque. 
+    If no such item exists, returns null. */
+    public T removeLast() {
         if (sentinel.next == sentinel){
             return null;
         }
@@ -82,13 +81,15 @@ public class LinkedListDeque<T> {
         return item;
     }
 
-    /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque! */
-    public T get(int index){
-        if (index > size - 1){
+    /** Gets the item at the given index, where 0 is the front, 
+    1 is the next item, and so forth. If no such item exists, returns null. 
+    Must not alter the deque! */
+    public T get(int index) {
+        if (index > size - 1) {
             return null;
         }
         TNode p = sentinel;
-        while (index != 0){
+        while (index != 0) {
             p = p.next;
             index -= 1;
         }
@@ -96,20 +97,17 @@ public class LinkedListDeque<T> {
     }
 
     /** Same as get, but uses recursion */
-    public T getRecursive(int index){
-        if (index > size - 1){
+    public T getRecursive(int index) {
+        if (index > size - 1) {
             return null;
         }
         return getRecursiveHelper(sentinel, index);
     }
 
-    public T getRecursiveHelper(TNode p, int index){
-        if (index == 0){
+    private T getRecursiveHelper(TNode p, int index) {
+        if (index == 0) {
             return p.next.item;
         }
         return getRecursiveHelper(p.next, index - 1); 
     }
-
-
-
 }
