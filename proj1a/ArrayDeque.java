@@ -23,7 +23,7 @@ public class ArrayDeque<T> {
     }
 
     /** Get the empty cube before the front item of the circular deque*/
-    public int minusOne(int index) {
+    private int minusOne(int index) {
         if (index > 0) {
             return index - 1;
         }
@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
     }
 
     /**  Get the empty cube after the last item of the circular deque*/
-    public int plusOne(int index, int len) {
+    private int plusOne(int index, int len) {
         if (index < len - 1) {
             return index + 1;
         }
@@ -50,7 +50,7 @@ public class ArrayDeque<T> {
     }
 
     /** Resize the deque (double the length) */
-    public void resize() {
+    private void resize() {
         T[] new_array = (T []) new Object[length * 2];
         /** copy the items from front to last */
         int p1 = front;
@@ -94,10 +94,10 @@ public class ArrayDeque<T> {
 
     /** Prints the items in the deque from first to last, 
      * separated by a space. */
-    public void printDeque(T[] a1) {
+    public void printDeque() {
         int j = 0;
-        while (j < a1.length) {
-            System.out.print(a1[j]);
+        while (j < length) {
+            System.out.print(array[j]);
             System.out.print(" ");
             j++;
         }
@@ -110,10 +110,14 @@ public class ArrayDeque<T> {
         if (isEmpty() == true) { 
             return null; 
         } 
-        size -= 1;
+        size--;
         front = plusOne(front, length);
-        System.out.println(array[front]);
-        return array[front];
+        T front_item = array[front];
+        array[front] = null;
+        if (size * 1.0 / length  <= 0.25) {
+            shrink();
+        }
+        return front_item;
     }
 
     /** Removes and returns the item at the back of the deque.
@@ -122,9 +126,14 @@ public class ArrayDeque<T> {
         if (isEmpty() == true) { 
             return null; 
         } 
-        size -= 1;
+        size--;
         last = minusOne(last);
-        return array[last];
+        T last_item = array[last];
+        array[last] = null;
+        if (size * 1.0 / length <= 0.25) {
+            shrink();
+        }
+        return last_item;
     }
 
     /** Gets the item at the given index, where 0 is the front, 
@@ -132,17 +141,34 @@ public class ArrayDeque<T> {
      * If no such item exists, returns null. 
      * Must not alter the deque! */
     public T get(int index) {
-        if (index >= length) {
+        if (index >= size) {
             return null;
         }
         int p = front;
         int cnt = 0;
+        p = plusOne(p, length);
         while (cnt < index) {
-            plusOne(p, length);
+            p = plusOne(p, length);
             cnt++;
         }
         return array[p];
-
     }
 
+    /** Resizes down after removals */
+    private void shrink() {
+        if (length <= 8) {
+            return;
+        }
+        int p = 0;
+        T[] new_array = (T []) new Object[length / 2]; 
+        while (p < size) {
+            front = plusOne(front, length);
+            new_array[p] = array[front];        
+            p++;
+        }
+        length = length / 2;
+        last = size;
+        front = length - 1;
+        array = new_array;
+    }
 }
