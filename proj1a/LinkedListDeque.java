@@ -1,5 +1,5 @@
 public class LinkedListDeque<T> {
-    public class TNode {
+    private class TNode {
         private T item;
         private TNode prev;
         private TNode next;
@@ -49,7 +49,7 @@ public class LinkedListDeque<T> {
     /** Prints the items in the deque from first to last, separated by a space. */
     public void printDeque() {
         TNode p = sentinel;
-        while (p.next != sentinel){
+        while (p.next != sentinel) {
             //System.out.print(p.next.item, " ");
             p = p.next;
         }
@@ -58,7 +58,7 @@ public class LinkedListDeque<T> {
     /**  Removes and returns the item at the front of the deque. 
     If no such item exists, returns null. */
     public T removeFirst() {
-        if (sentinel.next == sentinel){
+        if (sentinel.next == sentinel) {
             return null;
         }
         size -= 1;
@@ -71,7 +71,7 @@ public class LinkedListDeque<T> {
     /** Removes and returns the item at the back of the deque. 
     If no such item exists, returns null. */
     public T removeLast() {
-        if (sentinel.next == sentinel){
+        if (sentinel.next == sentinel) {
             return null;
         }
         size -= 1;
