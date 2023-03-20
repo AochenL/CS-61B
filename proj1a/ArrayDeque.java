@@ -1,17 +1,17 @@
 public class ArrayDeque<T> {
     /** array to save data.*/
-    public T[] array;
+    private T[] array;
     /** size of the deque. */
-    public int size;
+    private int size;
 
     /** size of the array. */
-    public int length;
+    private int length;
 
     /** front index. */
-    public int front;
+    private int front;
 
     /** last index. */
-    public int last;
+    private int last;
 
     /** constructor for ArrayDeque. */
     public ArrayDeque() {
