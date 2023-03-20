@@ -1,0 +1,148 @@
+public class ArrayDeque<T> {
+    /** array to save data.*/
+    public T[] array;
+    /** size of the deque. */
+    public int size;
+
+    /** size of the array. */
+    public int length;
+
+    /** front index. */
+    public int front;
+
+    /** last index. */
+    public int last;
+
+    /** constructor for ArrayDeque. */
+    public ArrayDeque() {
+        array = (T []) new Object[8];
+        size = 0;
+        length = 8;
+        front = 4;
+        last = 5;
+    }
+
+    /** Get the empty cube before the front item of the circular deque*/
+    public int minusOne(int index) {
+        if (index > 0) {
+            return index - 1;
+        }
+        return length - 1;
+    }
+
+    /**  Get the empty cube after the last item of the circular deque*/
+    public int plusOne(int index, int len) {
+        if (index < len - 1) {
+            return index + 1;
+        }
+        return 0;
+    }
+
+    /** Adds an item of type T to the front of the deque. */
+    public void addFirst(T x) {
+        if (size == length - 1) {
+           resize();
+        }
+        array[front] = x;
+        front = minusOne(front);
+        size += 1;
+    
+    }
+
+    /** Resize the deque (double the length) */
+    public void resize() {
+        T[] new_array = (T []) new Object[length * 2];
+        /** copy the items from front to last */
+        int p1 = front;
+        int p2 = front;
+        int cnt = 0;
+        /** p1 is the front of array */
+        /** p2 is the front of new_array*/ 
+        while (cnt <= size) {
+            new_array[p2] = array[p1];
+            p1 = plusOne(p1, length);
+            p2 = plusOne(p2, length * 2);
+            //print_array(new_array);
+            cnt++;
+        }
+        /** after copy is finished, p2 is the last of the new_array */
+        array = new_array;
+        length = length * 2;
+        last = p2;
+        //System.out.println(p2);
+    }
+     
+    /** Adds an item of type T to the back of the deque. */
+    public void addLast(T x) {
+        if (size == length - 1) {
+            resize();
+         }
+        array[last] = x;
+        last = plusOne(last, length);
+        size += 1;
+    }
+
+    /** Returns true if deque is empty, false otherwise. */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    
+    /** Returns the number of items in the deque. */
+    public int size() {
+        return size;
+    }
+
+    /** Prints the items in the deque from first to last, 
+     * separated by a space. */
+    public void printDeque(T[] a1) {
+        int j = 0;
+        while (j < a1.length) {
+            System.out.print(a1[j]);
+            System.out.print(" ");
+            j++;
+        }
+        System.out.println(" ");
+    }
+
+    /** Removes and returns the item at the front of the deque. 
+     * If no such item exists, returns null.*/
+    public T removeFirst() {
+        if (isEmpty() == true) { 
+            return null; 
+        } 
+        size -= 1;
+        front = plusOne(front, length);
+        System.out.println(array[front]);
+        return array[front];
+    }
+
+    /** Removes and returns the item at the back of the deque.
+     *  If no such item exists, returns null. */
+    public T removeLast() {
+        if (isEmpty() == true) { 
+            return null; 
+        } 
+        size -= 1;
+        last = minusOne(last);
+        return array[last];
+    }
+
+    /** Gets the item at the given index, where 0 is the front, 
+     * 1 is the next item, and so forth. 
+     * If no such item exists, returns null. 
+     * Must not alter the deque! */
+    public T get(int index) {
+        if (index >= length) {
+            return null;
+        }
+        int p = front;
+        int cnt = 0;
+        while (cnt < index) {
+            plusOne(p, length);
+            cnt++;
+        }
+        return array[p];
+
+    }
+
+}
