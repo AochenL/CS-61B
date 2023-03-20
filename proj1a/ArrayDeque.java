@@ -41,7 +41,7 @@ public class ArrayDeque<T> {
     /** Adds an item of type T to the front of the deque. */
     public void addFirst(T x) {
         if (size == length - 1) {
-           resize();
+            resize();
         }
         array[front] = x;
         front = minusOne(front);
@@ -51,22 +51,22 @@ public class ArrayDeque<T> {
 
     /** Resize the deque (double the length) */
     private void resize() {
-        T[] new_array = (T []) new Object[length * 2];
+        T[] newArray = (T []) new Object[length * 2];
         /** copy the items from front to last */
         int p1 = front;
         int p2 = front;
         int cnt = 0;
         /** p1 is the front of array */
-        /** p2 is the front of new_array*/ 
+        /** p2 is the front of newArray*/ 
         while (cnt <= size) {
-            new_array[p2] = array[p1];
+            newArray[p2] = array[p1];
             p1 = plusOne(p1, length);
             p2 = plusOne(p2, length * 2);
-            //print_array(new_array);
+            //print_array(newArray);
             cnt++;
         }
-        /** after copy is finished, p2 is the last of the new_array */
-        array = new_array;
+        /** after copy is finished, p2 is the last of the newArray */
+        array = newArray;
         length = length * 2;
         last = p2;
         //System.out.println(p2);
@@ -76,7 +76,7 @@ public class ArrayDeque<T> {
     public void addLast(T x) {
         if (size == length - 1) {
             resize();
-         }
+        }
         array[last] = x;
         last = plusOne(last, length);
         size += 1;
@@ -107,17 +107,17 @@ public class ArrayDeque<T> {
     /** Removes and returns the item at the front of the deque. 
      * If no such item exists, returns null.*/
     public T removeFirst() {
-        if (isEmpty() == true) { 
+        if (isEmpty()) { 
             return null; 
         } 
         size--;
         front = plusOne(front, length);
-        T front_item = array[front];
+        T frontItem = array[front];
         array[front] = null;
         if (size * 1.0 / length  <= 0.25) {
             shrink();
         }
-        return front_item;
+        return frontItem;
     }
 
     /** Removes and returns the item at the back of the deque.
@@ -128,12 +128,12 @@ public class ArrayDeque<T> {
         } 
         size--;
         last = minusOne(last);
-        T last_item = array[last];
+        T lastItem = array[last];
         array[last] = null;
         if (size * 1.0 / length <= 0.25) {
             shrink();
         }
-        return last_item;
+        return lastItem;
     }
 
     /** Gets the item at the given index, where 0 is the front, 
@@ -160,15 +160,15 @@ public class ArrayDeque<T> {
             return;
         }
         int p = 0;
-        T[] new_array = (T []) new Object[length / 2]; 
+        T[] newArray = (T []) new Object[length / 2]; 
         while (p < size) {
             front = plusOne(front, length);
-            new_array[p] = array[front];        
+            newArray[p] = array[front];        
             p++;
         }
         length = length / 2;
         last = size;
         front = length - 1;
-        array = new_array;
+        array = newArray;
     }
 }
