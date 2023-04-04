@@ -1,4 +1,4 @@
-public class ArrayDeque<Item> implements Deque<Item>{
+public class ArrayDeque<Item> implements Deque<Item> {
     /** array to save data.*/
     private Item[] array;
     /** size of the deque. */
@@ -15,7 +15,7 @@ public class ArrayDeque<Item> implements Deque<Item>{
 
     /** constructor for ArrayDeque. */
     public ArrayDeque() {
-        array = (Item []) new Object[8];
+        array = (Item[]) new Object[8];
         size = 0;
         length = 8;
         front = 4;
@@ -52,7 +52,7 @@ public class ArrayDeque<Item> implements Deque<Item>{
 
     /** Resize the deque (double the length) */
     private void resize() {
-        Item[] newArray = (Item []) new Object[length * 2];
+        Item[] newArray = (Item[]) new Object[length * 2];
         /** copy the items from front to last */
         int p1 = front;
         int p2 = front;
@@ -91,7 +91,7 @@ public class ArrayDeque<Item> implements Deque<Item>{
     }
 
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
 
@@ -167,7 +167,7 @@ public class ArrayDeque<Item> implements Deque<Item>{
             return;
         }
         int p = 0;
-        Item[] newArray = (Item []) new Object[length / 2];
+        Item[] newArray = (Item[]) new Object[length / 2];
         while (p < size) {
             front = plusOne(front, length);
             newArray[p] = array[front];        
