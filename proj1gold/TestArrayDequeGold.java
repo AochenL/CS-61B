@@ -39,17 +39,14 @@ public class TestArrayDequeGold {
                     Integer expected = sad.removeLast();
                     Integer actual = ads.removeLast();
                     operations += "removeLast(" + i + ")\n";
-                    assertEquals("Oh noooo!\nThis is bad:\nAfter " + operations, 
-                     expected, actual);
+                    assertEquals(operations, expected, actual);
                 }
             } else {
                 if (sad.size() > 0 && ads.size() > 0) {
                     Integer expected = sad.removeFirst();
                     Integer actual = ads.removeFirst();
                     operations += "removeFirst(" + i + ")\n";
-                    assertEquals("Oh noooo!\nThis is bad:\n   The deque should return " + expected
-                    + " but student deque returns " + actual + "!", 
-                    expected, actual);
+                    assertEquals(operations, expected, actual);
                 }
                
             }
