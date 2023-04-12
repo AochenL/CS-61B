@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/ismart/Downloads/CS 61B/library-sp18/javalib/**/*.jar"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
+}

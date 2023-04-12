@@ -12,7 +12,23 @@ import static org.junit.Assert.*;
  */
 
 public class TestGuitarString {
-/*    @Test
+
+    @Test 
+    public void testLongToInt(){
+        int SR = 44100; 
+        double frequency = 440.0;
+        int capacity = (int) Math.round (SR / frequency);
+        System.out.println(capacity);
+    }
+
+    @Test
+    public void testStdAudio() {
+        StdAudio.play(0.333);
+    }
+
+
+
+    @Test
     public void testPluckTheAString() {
         double CONCERT_A = 440.0;
         GuitarString aString = new GuitarString(CONCERT_A);
@@ -21,9 +37,9 @@ public class TestGuitarString {
             StdAudio.play(aString.sample());
             aString.tic();
         }
-    }*/
+    }
 
-/*
+
     @Test
     public void testTic() {
         // Create a GuitarString of frequency 11025, which
@@ -52,7 +68,6 @@ public class TestGuitarString {
         assertEquals(expected, s5, 0.001);
 
     }
-*/
 
     /** Calls tests for GuitarString. */
     public static void main(String[] args) {
